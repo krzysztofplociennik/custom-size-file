@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { RouterOutlet } from '@angular/router';
+import { GenerateService } from './generate/generate.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [HomeComponent]
@@ -13,10 +13,10 @@ export class AppComponent {
   title = 'any-size-pdf';
 
   constructor(
-    private home: HomeComponent
+    private generateService: GenerateService
   ) {}
 
   generate() {
-    this.home.generatePdf()
+    this.generateService.generateSimplePDF();
   }
 }
