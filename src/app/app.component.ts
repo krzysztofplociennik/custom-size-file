@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PdfmakeGenerateService } from './generate/pdfmake/pdfmake-generate.service';
-import { RawGenerateService } from './generate/raw/raw-generate.service';
+import { PdfmakeGenerateService } from './generate/pdf/pdfmake/pdfmake-generate.service';
+import { RawGenerateService } from './generate/pdf/raw/raw-generate.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { RawGenerateService } from './generate/raw/raw-generate.service';
   providers: []
 })
 export class AppComponent {
-  title = 'any-size-pdf';
+  title = 'any-size-file';
 
   constructor(
     private generateService: PdfmakeGenerateService,

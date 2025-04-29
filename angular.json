@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "any-size-pdf": {
+    "any-size-file": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/any-size-pdf",
+            "outputPath": "dist/any-size-file",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "any-size-pdf:build:production"
+              "buildTarget": "any-size-file:build:production"
             },
             "development": {
-              "buildTarget": "any-size-pdf:build:development"
+              "buildTarget": "any-size-file:build:development"
             }
           },
           "defaultConfiguration": "development"
