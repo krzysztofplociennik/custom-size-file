@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { PdfmakeGenerateService } from './generate/pdf/pdfmake/pdfmake-generate.service';
-import { RawGenerateService } from './generate/pdf/raw/raw-generate.service';
+import { RawGenerateService } from './generate/pdf/raw-generate.service';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +12,8 @@ export class AppComponent {
   title = 'any-size-file';
 
   constructor(
-    private generateService: PdfmakeGenerateService,
     private rawGenerate: RawGenerateService
   ) {}
-
-  pdfmakeGenerate() {
-    this.generateService.generateSimplePDF();
-  }
 
   doRawGenerate() {
     // this.rawGenerate.generateRawPDF(110000);
