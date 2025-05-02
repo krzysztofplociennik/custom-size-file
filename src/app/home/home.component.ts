@@ -10,8 +10,8 @@ import { RawGenerateService } from '../generate/pdf/raw-generate.service';
 export class HomeComponent {
   stateOptions = [
     { label: 'txt', value: 'txt' },
+    { label: 'docx', value: 'docx ' },
     { label: 'pdf', value: 'pdf' },
-    { label: 'docx', value: 'docx ' }
   ];
 
   value: string = 'off';
