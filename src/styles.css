@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+
+@font-face {
+    font-family: 'Mynerve';
+    src: url('assets/fonts/Mynerve/Mynerve-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cal Sans';
+    src: url('assets/fonts/cal_sans/CalSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Cal Sans', sans-serif;
+}
