@@ -1,8 +1,10 @@
 <div id="content">
     <span id="title"> any size pdf </span>
-    <button id="generateButton" (click)="doRawGenerate()">raw generate</button>
 
-    <div class="card flex justify-center">
+    <div id="fileTypeSelectButton" class="card flex justify-center">
         <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
     </div>
+
+    <button id="generateButton" (click)="doRawGenerate()">raw generate</button>
+    
 </div>

@@ -9,8 +9,9 @@ import { RawGenerateService } from '../generate/pdf/raw-generate.service';
 })
 export class HomeComponent {
   stateOptions = [
-    { label: 'One-Way', value: 'one-way' },
-    { label: 'Return', value: 'return' }
+    { label: 'txt', value: 'txt' },
+    { label: 'pdf', value: 'pdf' },
+    { label: 'docx', value: 'docx ' }
   ];
 
   value: string = 'off';

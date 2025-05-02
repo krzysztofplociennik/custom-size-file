@@ -14,3 +14,7 @@
     height: 11rem;
     width: 20rem;   
 }
+
+#fileTypeSelectButton {
+    margin-top: 2%;
+}
