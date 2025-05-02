@@ -1,10 +1,19 @@
 <div id="content">
-    <span id="title"> any size file </span>
+    <span id="title"> generate any size file </span>
 
     <div id="fileTypeSelectButton" class="card flex justify-center">
-        <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+        <p-selectbutton [options]="fileTypeOptions" [(ngModel)]="selectedFileType" optionLabel="label" optionValue="value" aria-labelledby="basic" />
     </div>
 
-    <button id="generateButton" (click)="doRawGenerate()">raw generate</button>
+    <div id="inputDiv">
+        <p-inputnumber id="sizeInput" inputId="integeronly" [(ngModel)]="selectedSize" />
+
+        <p-floatlabel id="sizeUnitFloatLabel" variant="on">
+            <p-select id="sizeUnitSelect" [(ngModel)]="selectedSizeUnit" inputId="on_label" [options]="sizeUnits" optionLabel="name" styleClass="w-full" />
+            <label for="on_label">Size</label>
+        </p-floatlabel>
+    </div>
+
+    <p-button id="generateButton" (onClick)="generateByType()" label="generate!" />
     
 </div>

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
+import { DownloadUtils } from '../../shared/utils/download-utils';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RawGenerateService {
+export class PdfService {
 
-  constructor() {}
+  constructor() { }
 
-  generateRawPDF(dotCount: number): void {
-    const dots = '.'.repeat(dotCount);
-    // const dots = 'a'.repeat(dotCount);
+  generatePdfFile(sizeInBytes: number): void {
+    const dots = '.'.repeat(sizeInBytes - 446);
 
     const content = `BT
 /F1 24 Tf
@@ -27,7 +27,6 @@ ET`;
       `4 0 obj\n<< /Length ${contentLength} >>\nstream\n${content}\nendstream\nendobj\n`,
     ];
 
-    // Manually calculate positions (very simple, good enough for small files)
     const offsets = [];
     let pos = 0;
     for (const part of pdfParts) {
@@ -52,22 +51,10 @@ ET`;
 
     const pdfString = pdfParts.join('') + xref + trailer;
 
-    this.downloadFile(pdfString, `raw_${dotCount}_dots.pdf`);
+    DownloadUtils.downloadPdfFile(pdfString, `size_${sizeInBytes}_dots.pdf`);
   }
 
   private formatOffset(offset: number): string {
     return offset.toString().padStart(10, '0') + ' 00000 n \n';
-  }
-
-  private downloadFile(data: string, filename: string): void {
-    const blob = new Blob([data], { type: 'application/pdf' });
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-
-    window.URL.revokeObjectURL(url);
   }
 }

@@ -10,11 +10,25 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { SelectModule } from 'primeng/select';
+
 import Lara from '@primeng/themes/lara';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, FormsModule, SelectButtonModule, ButtonModule],
+  imports: [
+    BrowserModule, 
+    FormsModule,
+    SelectButtonModule, 
+    ButtonModule,
+    InputNumberModule,
+    CascadeSelectModule,
+    FloatLabelModule,
+    SelectModule,
+  ],
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),

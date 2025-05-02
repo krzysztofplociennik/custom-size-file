@@ -10,13 +10,25 @@
 }
 
 #generateButton {
-    margin-top: 5%;
-    height: 11rem;
-    width: 20rem;   
+    margin-top: 3%;
 }
 
 #fileTypeSelectButton {
+    margin-top: 4%;
+}
+
+#inputDiv {
+    display: flex;
+    flex-direction: row;
     margin-top: 2%;
+}
+
+#sizeInput {
+    margin-right: 2%;
+}
+
+#sizeUnitFloatLabel {
+    width: 150px;
 }
 
 h1 {
