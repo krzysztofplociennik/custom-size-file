@@ -1,8 +1,15 @@
 <div id="content">
-    <span id="title"> generate any size file </span>
+    <span id="title"> generate custom size file </span>
 
     <div id="fileTypeSelectButton" class="card flex justify-center">
-        <p-selectbutton [options]="fileTypeOptions" [(ngModel)]="selectedFileType" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+        <p-selectbutton 
+            [options]="fileTypeOptions" 
+            [(ngModel)]="selectedFileType" 
+            optionLabel="label" 
+            optionValue="value" 
+            aria-labelledby="basic" 
+            (onChange)="onFileTypeChange($event)" 
+            />
     </div>
 
     <div id="inputDiv">

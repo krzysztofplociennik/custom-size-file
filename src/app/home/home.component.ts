@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   ];
 
   selectedFileType: string = 'txt';
-  selectedSize: number = 0;
+  selectedSize: number = 22;
   selectedSizeUnit: SizeUnit | undefined;
   sizeUnits: SizeUnit[] | undefined;
 
@@ -34,7 +34,25 @@ export class HomeComponent implements OnInit {
         { name: 'kilobytes', code: 'kB' },
         { name: 'megabytes', code: 'mB' },
     ];
-}
+  }
+
+  onFileTypeChange(event: any) {
+    this.selectedSize = this.getMinimalSize();
+  }
+
+  private getMinimalSize(): number {
+    const type = this.selectedFileType;
+    switch(type) {
+      case 'txt': 
+        return 1;
+      case 'docx': 
+        return 8000;
+      case 'pdf': 
+        return 446
+      default: 
+        throw new Error('Type not recognized! (EID: 202505031631)');
+    }
+  }
 
   generateByType() {
     const type = this.selectedFileType;
