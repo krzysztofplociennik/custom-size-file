@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "any-size-file": {
+    "custom-size-file": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/any-size-file",
+            "outputPath": "dist/custom-size-file",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -23,7 +23,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets"
               }
             ],
             "styles": [
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "any-size-file:build:production"
+              "buildTarget": "custom-size-file:build:production"
             },
             "development": {
-              "buildTarget": "any-size-file:build:development"
+              "buildTarget": "custom-size-file:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets"
               }
             ],
             "styles": [
