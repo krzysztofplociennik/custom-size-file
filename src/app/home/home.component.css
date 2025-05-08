@@ -1,36 +1,129 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #f0f4ff, #e0e8ff);
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
 #content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 #title {
-    margin-top: 2%;
-    font-size: 40px;
-}
-
-#generateButton {
-    margin-top: 3%;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4F46E5;
+  text-align: center;
 }
 
 #fileTypeSelectButton {
-    margin-top: 4%;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  width: 50%;
+  background-color: #f2f5ff;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-selectbutton .p-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  margin: 0 0.5rem;
+  transition: all 0.2s;
+}
+
+:host ::ng-deep .p-selectbutton .p-button.p-highlight {
+  background-color: #4F46E5;
+  border-color: #4F46E5;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  transform: translateY(-2px);
+}
+
+:host ::ng-deep .p-selectbutton .p-button .p-button-icon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
 }
 
 #inputDiv {
-    display: flex;
-    flex-direction: row;
-    margin-top: 2%;
+  display: flex;
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+:host ::ng-deep .p-float-label input:focus~label,
+:host ::ng-deep .p-float-label input.p-filled~label {
+  color: #4F46E5;
+}
+
+:host ::ng-deep .p-inputnumber .p-inputtext,
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #D1D5DB;
+}
+
+:host ::ng-deep .p-inputnumber .p-inputtext:focus,
+:host ::ng-deep .p-dropdown:focus {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
 #sizeInput {
-    margin-right: 2%;
+  flex: 1;
+}
+
+#unitInput {
+  flex: 1;
 }
 
 #sizeUnitSelect {
-    width: 10rem;
+  width: 100%;
 }
 
-h1 {
-    font-family: 'Mynerve';
+#generateButton {
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-button {
+  background-color: #4F46E5;
+  border-color: #4F46E5;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+:host ::ng-deep .p-button:hover {
+  background-color: #4338CA;
+  border-color: #4338CA;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.file-type-description {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E5E7EB;
+  width: 100%;
 }

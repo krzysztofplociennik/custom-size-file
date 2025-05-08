@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   selectedSize: number = 22;
   selectedSizeUnit: SizeUnit | undefined;
   sizeUnits: SizeUnit[] | undefined;
+  defaultSizeUnit: SizeUnit = { name: 'bytes', code: 'B' };
 
   constructor(
     private pdfService: PdfService,
@@ -34,10 +35,12 @@ export class HomeComponent implements OnInit {
         { name: 'kilobytes', code: 'kB' },
         { name: 'megabytes', code: 'mB' },
     ];
+    this.selectedSizeUnit = this.defaultSizeUnit;
   }
 
   onFileTypeChange(event: any) {
     this.selectedSize = this.getMinimalSize();
+    this.selectedSizeUnit = this.defaultSizeUnit;
   }
 
   private getMinimalSize(): number {
@@ -75,8 +78,11 @@ export class HomeComponent implements OnInit {
   }
 
   private determineSize() {
+    if (!this.selectedSizeUnit) {
+      return this.selectedSize;
+    }
 
-    switch(this.selectedSizeUnit?.code) {
+    switch(this.selectedSizeUnit.code) {
       case 'B': 
         return this.selectedSize;
       case 'kB': 
@@ -93,4 +99,3 @@ interface SizeUnit {
   name: string;
   code: string;
 }
-
