@@ -13,11 +13,15 @@
     </div>
 
     <div id="inputDiv">
-        <p-inputnumber id="sizeInput" inputId="integeronly" [(ngModel)]="selectedSize" />
 
-        <p-floatlabel id="sizeUnitFloatLabel" variant="on">
-            <p-select id="sizeUnitSelect" [(ngModel)]="selectedSizeUnit" inputId="on_label" [options]="sizeUnits" optionLabel="name" styleClass="w-full" />
+        <p-floatlabel id="sizeInput" variant="on">
+            <p-inputnumber id="sizeInput" inputId="integeronly" [(ngModel)]="selectedSize" />
             <label for="on_label">Size</label>
+        </p-floatlabel>
+
+        <p-floatlabel id="unitInput" variant="on">
+            <p-select id="sizeUnitSelect" [(ngModel)]="selectedSizeUnit" inputId="on_label" [options]="sizeUnits" optionLabel="name" />
+            <label for="on_label">Unit</label>
         </p-floatlabel>
     </div>
 
