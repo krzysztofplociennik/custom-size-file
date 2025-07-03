@@ -19,7 +19,14 @@
       </p-floatlabel>
 
       <p-floatlabel id="unitInput" variant="on">
-          <p-select id="sizeUnitSelect" [(ngModel)]="selectedSizeUnit" inputId="on_label" [options]="sizeUnits" optionLabel="name" />
+          <p-select 
+            id="sizeUnitSelect" 
+            [(ngModel)]="selectedSizeUnit" 
+            inputId="on_label" 
+            [options]="sizeUnits" 
+            optionLabel="name" 
+            (onChange)="onSizeUnitChange($event)" 
+            />
           <label for="on_label">Unit</label>
       </p-floatlabel>
   </div>

@@ -11,6 +11,10 @@ import { DocxService } from '../generate/docx/docx.service';
 })
 export class HomeComponent implements OnInit {
 
+  minimalPdfSizeInBytes = 446;
+  minimalDocxSizeInBytes = 8000;
+  minimalTxtSizeInBytes = 1;
+
   fileTypeOptions = [
     { label: 'txt', value: 'txt' },
     { label: 'docx', value: 'docx' },
@@ -43,15 +47,34 @@ export class HomeComponent implements OnInit {
     this.selectedSizeUnit = this.defaultSizeUnit;
   }
 
+  onSizeUnitChange(event: any) {
+    if (!this.isInputSizeValid()) {
+      this.selectedSize = this.getMinimalSize();
+    }
+  }
+
+  private isInputSizeValid() {
+    if (this.selectedSize < this.minimalTxtSizeInBytes) {
+      return false;
+    }
+    if (this.selectedSize < this.minimalPdfSizeInBytes && this.selectedFileType === 'pdf' && this.selectedSizeUnit?.code === 'B') {
+      return false;
+    }
+    if (this.selectedSize < this.minimalDocxSizeInBytes && this.selectedFileType === 'docx' && this.selectedSizeUnit?.code === 'B') {
+      return false;
+    }
+    return true;
+  }
+
   private getMinimalSize(): number {
     const type = this.selectedFileType;
     switch(type) {
       case 'txt': 
-        return 1;
+        return this.minimalTxtSizeInBytes;
       case 'docx': 
-        return 8000;
+        return this.minimalDocxSizeInBytes;
       case 'pdf': 
-        return 446
+        return this.minimalPdfSizeInBytes;
       default: 
         throw new Error('Type not recognized! (EID: 202505031631)');
     }
