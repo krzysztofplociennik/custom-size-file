@@ -11,21 +11,32 @@ import { DocxService } from '../generate/docx/docx.service';
 })
 export class HomeComponent implements OnInit {
 
-  minimalPdfSizeInBytes = 446;
-  minimalDocxSizeInBytes = 8000;
-  minimalTxtSizeInBytes = 1;
+  private static readonly minimalPdfSizeInBytes = 446;
+  private static readonly minimalDocxSizeInBytes = 8000;
+  private static readonly minimalTxtSizeInBytes = 1;
+
+  private static readonly textExtention = 'txt';
+  private static readonly documentExtention = 'docx';
+  private static readonly pdfExtention = 'pdf';
+
+  private static readonly bytesLabel = 'bytes';
+  private static readonly kilobytesLabel = 'kilobytes';
+  private static readonly megabyteslabel = 'megabytes';
+  private static readonly bytesCode = 'B';
+  private static readonly kilobytesCode = 'kB';
+  private static readonly megabytesCode = 'mB';
 
   fileTypeOptions = [
-    { label: 'txt', value: 'txt' },
-    { label: 'docx', value: 'docx' },
-    { label: 'pdf', value: 'pdf' },
+    { label: HomeComponent.textExtention, value: HomeComponent.textExtention },
+    { label: HomeComponent.documentExtention, value: HomeComponent.documentExtention },
+    { label: HomeComponent.pdfExtention, value: HomeComponent.pdfExtention },
   ];
 
-  selectedFileType: string = 'txt';
-  selectedSize: number = 22;
+  selectedFileType: string = HomeComponent.textExtention;
+  selectedSize: number = HomeComponent.minimalTxtSizeInBytes;
   selectedSizeUnit: SizeUnit | undefined;
   sizeUnits: SizeUnit[] | undefined;
-  defaultSizeUnit: SizeUnit = { name: 'bytes', code: 'B' };
+  defaultSizeUnit: SizeUnit = { name: HomeComponent.bytesLabel, code: HomeComponent.bytesCode };
 
   constructor(
     private pdfService: PdfService,
@@ -35,9 +46,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.sizeUnits = [
-        { name: 'bytes', code: 'B' },
-        { name: 'kilobytes', code: 'kB' },
-        { name: 'megabytes', code: 'mB' },
+        { name: HomeComponent.bytesLabel, code: HomeComponent.bytesCode },
+        { name: HomeComponent.kilobytesLabel, code: HomeComponent.kilobytesCode },
+        { name: HomeComponent.megabyteslabel, code: HomeComponent.megabytesCode },
     ];
     this.selectedSizeUnit = this.defaultSizeUnit;
   }
@@ -54,13 +65,13 @@ export class HomeComponent implements OnInit {
   }
 
   private isInputSizeValid() {
-    if (this.selectedSize < this.minimalTxtSizeInBytes) {
+    if (this.selectedSize < HomeComponent.minimalTxtSizeInBytes) {
       return false;
     }
-    if (this.selectedSize < this.minimalPdfSizeInBytes && this.selectedFileType === 'pdf' && this.selectedSizeUnit?.code === 'B') {
+    if (this.selectedSize < HomeComponent.minimalPdfSizeInBytes && this.selectedFileType === HomeComponent.pdfExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
       return false;
     }
-    if (this.selectedSize < this.minimalDocxSizeInBytes && this.selectedFileType === 'docx' && this.selectedSizeUnit?.code === 'B') {
+    if (this.selectedSize < HomeComponent.minimalDocxSizeInBytes && this.selectedFileType === HomeComponent.documentExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
       return false;
     }
     return true;
@@ -70,11 +81,11 @@ export class HomeComponent implements OnInit {
     const type = this.selectedFileType;
     switch(type) {
       case 'txt': 
-        return this.minimalTxtSizeInBytes;
+        return HomeComponent.minimalTxtSizeInBytes;
       case 'docx': 
-        return this.minimalDocxSizeInBytes;
+        return HomeComponent.minimalDocxSizeInBytes;
       case 'pdf': 
-        return this.minimalPdfSizeInBytes;
+        return HomeComponent.minimalPdfSizeInBytes;
       default: 
         throw new Error('Type not recognized! (EID: 202505031631)');
     }
