@@ -1,0 +1,14 @@
+1. validation for manual user input 
+2. validation for maximum input
+3. maybe adding specific masks
+4. probably two separate views: one for just an easy and quick access and one for an advanced generation
+5. multiple files to generate?
+6. progress spinner/bar
+7. api endpoints 
+8. Embed metadata in file
+9. dark mode
+10. additional types of files (like PNG)
+11. different pattern instead of just dots
+12. template system
+13. server side generation
+14. 
