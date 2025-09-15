@@ -15,6 +15,10 @@ export class HomeComponent implements OnInit {
   private static readonly minimalDocxSizeInBytes = 8000;
   private static readonly minimalTxtSizeInBytes = 1;
 
+  private static readonly maximumPdfSizeInBytes = 1_000_000;
+  private static readonly maximumDocxSizeInBytes = 1_000_000;
+  private static readonly maximumTxtSizeInBytes = 1_000_000;
+
   private static readonly textExtention = 'txt';
   private static readonly documentExtention = 'docx';
   private static readonly pdfExtention = 'pdf';
@@ -33,10 +37,13 @@ export class HomeComponent implements OnInit {
   ];
 
   selectedFileType: string = HomeComponent.textExtention;
-  selectedSize: number = HomeComponent.minimalTxtSizeInBytes;
+  inputSize: number = HomeComponent.minimalTxtSizeInBytes;
   selectedSizeUnit: SizeUnit | undefined;
   sizeUnits: SizeUnit[] | undefined;
   defaultSizeUnit: SizeUnit = { name: HomeComponent.bytesLabel, code: HomeComponent.bytesCode };
+
+  showMinimalValidSizeErrorMessage = false;
+  showMaximumValidSizeErrorMessage = false;
 
   constructor(
     private pdfService: PdfService,
@@ -54,24 +61,42 @@ export class HomeComponent implements OnInit {
   }
 
   onFileTypeChange(event: any) {
-    this.selectedSize = this.getMinimalSize();
+    this.clearErrorMessages();
+    this.inputSize = this.getMinimalSize();
     this.selectedSizeUnit = this.defaultSizeUnit;
   }
 
   onSizeUnitChange(event: any) {
-    if (!this.isInputSizeValid()) {
-      this.selectedSize = this.getMinimalSize();
+    this.clearErrorMessages();
+    if (this.isInputSizeLessThanMinimal()) {
+      this.inputSize = this.getMinimalSize();
     }
   }
 
-  private isInputSizeValid() {
-    if (this.selectedSize < HomeComponent.minimalTxtSizeInBytes) {
+  private isInputSizeLessThanMinimal() {
+    if (this.inputSize < HomeComponent.minimalTxtSizeInBytes) {
+      return true;
+    }
+    if (this.inputSize < HomeComponent.minimalPdfSizeInBytes && this.selectedFileType === HomeComponent.pdfExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
+      return true;
+    }
+    if (this.inputSize < HomeComponent.minimalDocxSizeInBytes && this.selectedFileType === HomeComponent.documentExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
+      return true;
+    }
+    return false;
+  }
+
+  private isInputSizeMoreThanMaximum() {
+    return this.inputSize > HomeComponent.maximumDocxSizeInBytes;
+  }
+
+  isInputSizeValid() {
+    if (this.isInputSizeLessThanMinimal()) {
+      this.showMinimalValidSizeErrorMessage = true;
       return false;
     }
-    if (this.selectedSize < HomeComponent.minimalPdfSizeInBytes && this.selectedFileType === HomeComponent.pdfExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
-      return false;
-    }
-    if (this.selectedSize < HomeComponent.minimalDocxSizeInBytes && this.selectedFileType === HomeComponent.documentExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
+    if (this.isInputSizeMoreThanMaximum()) {
+      this.showMaximumValidSizeErrorMessage = true;
       return false;
     }
     return true;
@@ -80,11 +105,11 @@ export class HomeComponent implements OnInit {
   private getMinimalSize(): number {
     const type = this.selectedFileType;
     switch(type) {
-      case 'txt': 
+      case HomeComponent.textExtention: 
         return HomeComponent.minimalTxtSizeInBytes;
-      case 'docx': 
+      case HomeComponent.documentExtention: 
         return HomeComponent.minimalDocxSizeInBytes;
-      case 'pdf': 
+      case HomeComponent.pdfExtention: 
         return HomeComponent.minimalPdfSizeInBytes;
       default: 
         throw new Error('Type not recognized! (EID: 202505031631)');
@@ -92,18 +117,22 @@ export class HomeComponent implements OnInit {
   }
 
   generateByType() {
-    const type = this.selectedFileType;
+    this.clearErrorMessages();
+    if (!this.isInputSizeValid()) {
+      return;
+    }
 
+    const type = this.selectedFileType;
     const sizeInBytes = this.determineSize();
 
     switch(type) {
-      case 'txt': 
+      case HomeComponent.textExtention: 
         this.txtService.generateTxtFile(sizeInBytes);
         break;
-      case 'docx': 
+      case HomeComponent.documentExtention: 
         this.docxService.generateDoxcFile(sizeInBytes);
         break;
-      case 'pdf': 
+      case HomeComponent.pdfExtention: 
         this.pdfService.generatePdfFile(sizeInBytes);
         break;
       default: 
@@ -113,19 +142,24 @@ export class HomeComponent implements OnInit {
 
   private determineSize() {
     if (!this.selectedSizeUnit) {
-      return this.selectedSize;
+      return this.inputSize;
     }
 
     switch(this.selectedSizeUnit.code) {
-      case 'B': 
-        return this.selectedSize;
-      case 'kB': 
-        return this.selectedSize * 1_000;
-      case 'mB':
-        return this.selectedSize * 1_000_000;
+      case HomeComponent.bytesCode: 
+        return this.inputSize;
+      case HomeComponent.kilobytesCode: 
+        return this.inputSize * 1_000;
+      case HomeComponent.megabytesCode:
+        return this.inputSize * 1_000_000;
       default:
         throw new Error('Selected size unit is not recognized! (EID: 202505021119');
     }
+  }
+
+  private clearErrorMessages() {
+    this.showMinimalValidSizeErrorMessage = false;
+    this.showMaximumValidSizeErrorMessage = false;
   }
 }
 

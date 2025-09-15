@@ -14,7 +14,7 @@
 
   <div id="inputDiv">
       <p-floatlabel id="sizeInput" variant="on">
-          <p-inputnumber id="sizeInput" inputId="integeronly" [(ngModel)]="selectedSize" />
+          <p-inputnumber id="sizeInput" inputId="integeronly" [(ngModel)]="inputSize" />
           <label for="on_label">Size</label>
       </p-floatlabel>
 
@@ -29,6 +29,30 @@
             />
           <label for="on_label">Unit</label>
       </p-floatlabel>
+  </div>
+
+  <div *ngIf="showMinimalValidSizeErrorMessage">
+    <span class="validationMessage">
+        The input is too small - minimal acceptable sizes are:
+    </span>
+    <br>
+    <span class="validationMessage">
+        - txt: 1 B
+    </span>
+        <br>
+    <span class="validationMessage">
+        - docx: 8000 B
+    </span>
+        <br>
+    <span class="validationMessage">
+        - pdf: 446 B
+    </span>
+  </div>
+
+  <div *ngIf="showMaximumValidSizeErrorMessage">
+     <span class="validationMessage">
+        The input is too large - maximum acceptable size is 1 000 000 bytes for either of types.
+     </span>
   </div>
 
   <div id="generateButton">

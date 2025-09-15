@@ -127,3 +127,7 @@ body {
   border-top: 1px solid #E5E7EB;
   width: 100%;
 }
+
+.validationMessage {
+  color: #d80f0f;
+}
