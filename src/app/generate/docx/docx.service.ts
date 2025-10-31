@@ -6,9 +6,6 @@ import { saveAs } from 'file-saver';
   providedIn: 'root'
 })
 export class DocxService {
-
-  constructor() { }
-
   generateDoxcFile(sizeInBytes: number) {
     const text = '.'.repeat(sizeInBytes);
 

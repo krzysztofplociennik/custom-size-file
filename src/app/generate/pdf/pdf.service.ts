@@ -5,9 +5,6 @@ import { DownloadUtils } from '../../shared/utils/download-utils';
   providedIn: 'root'
 })
 export class PdfService {
-
-  constructor() { }
-
   generatePdfFile(sizeInBytes: number): void {
     const dots = '.'.repeat(sizeInBytes - 446);
 
