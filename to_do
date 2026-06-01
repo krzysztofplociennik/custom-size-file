@@ -1,14 +1,14 @@
-1. 
-2. 
+1. when trying to generate big files RAM accumulates
+2. changing colors
 3. 
-4. probably two separate views: one for just an easy and quick access and one for an advanced generation
-5. multiple files to generate?
+4. 
+5. 
 6. progress spinner/bar
-7. api endpoints 
-8. Embed metadata in file
-9. dark mode
-10. additional types of files (like PNG)
+7.  
+8. 
+9. 
+10. 
 11. different pattern instead of just dots
 12. template system
-13. server side generation
+13. 
 14. 
