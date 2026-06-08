@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PdfService } from '../generate/pdf/pdf.service';
 import { TxtService } from '../generate/txt/txt.service';
 import { DocxService } from '../generate/docx/docx.service';
+import { SpinnerService } from '../shared/spinner/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -48,14 +49,15 @@ export class HomeComponent implements OnInit {
   constructor(
     private pdfService: PdfService,
     private txtService: TxtService,
-    private docxService: DocxService
-  ) {}
+    private docxService: DocxService,
+    private spinnerService: SpinnerService,
+  ) { }
 
   ngOnInit() {
     this.sizeUnits = [
-        { name: HomeComponent.bytesLabel, code: HomeComponent.bytesCode },
-        { name: HomeComponent.kilobytesLabel, code: HomeComponent.kilobytesCode },
-        { name: HomeComponent.megabyteslabel, code: HomeComponent.megabytesCode },
+      { name: HomeComponent.bytesLabel, code: HomeComponent.bytesCode },
+      { name: HomeComponent.kilobytesLabel, code: HomeComponent.kilobytesCode },
+      { name: HomeComponent.megabyteslabel, code: HomeComponent.megabytesCode },
     ];
     this.selectedSizeUnit = this.defaultSizeUnit;
   }
@@ -73,17 +75,21 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  private isInputSizeLessThanMinimal() {
-    if (this.inputSize < HomeComponent.minimalTxtSizeInBytes) {
-      return true;
+  private isInputSizeLessThanMinimal(): boolean {
+    if (this.selectedSizeUnit?.code !== HomeComponent.bytesCode) {
+      return false;
     }
-    if (this.inputSize < HomeComponent.minimalPdfSizeInBytes && this.selectedFileType === HomeComponent.pdfExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
-      return true;
+
+    switch(this.selectedFileType) {
+      case HomeComponent.textExtention:
+        return this.inputSize < HomeComponent.minimalTxtSizeInBytes;
+      case HomeComponent.pdfExtention:
+        return this.inputSize < HomeComponent.minimalPdfSizeInBytes;
+      case HomeComponent.documentExtention:
+        return this.inputSize < HomeComponent.minimalDocxSizeInBytes;
+      default:
+        throw new Error('Type not recognized! (EID: 091408062026)');
     }
-    if (this.inputSize < HomeComponent.minimalDocxSizeInBytes && this.selectedFileType === HomeComponent.documentExtention && this.selectedSizeUnit?.code === HomeComponent.bytesCode) {
-      return true;
-    }
-    return false;
   }
 
   private isInputSizeMoreThanMaximum() {
@@ -104,19 +110,19 @@ export class HomeComponent implements OnInit {
 
   private getMinimalSize(): number {
     const type = this.selectedFileType;
-    switch(type) {
-      case HomeComponent.textExtention: 
+    switch (type) {
+      case HomeComponent.textExtention:
         return HomeComponent.minimalTxtSizeInBytes;
-      case HomeComponent.documentExtention: 
+      case HomeComponent.documentExtention:
         return HomeComponent.minimalDocxSizeInBytes;
-      case HomeComponent.pdfExtention: 
+      case HomeComponent.pdfExtention:
         return HomeComponent.minimalPdfSizeInBytes;
-      default: 
+      default:
         throw new Error('Type not recognized! (EID: 202505031631)');
     }
   }
 
-  generateByType() {
+  async generateByType() {
     this.clearErrorMessages();
     if (!this.isInputSizeValid()) {
       return;
@@ -125,18 +131,25 @@ export class HomeComponent implements OnInit {
     const type = this.selectedFileType;
     const sizeInBytes = this.determineSize();
 
-    switch(type) {
-      case HomeComponent.textExtention: 
-        this.txtService.generateTxtFile(sizeInBytes);
-        break;
-      case HomeComponent.documentExtention: 
-        this.docxService.generateDoxcFile(sizeInBytes);
-        break;
-      case HomeComponent.pdfExtention: 
-        this.pdfService.generatePdfFile(sizeInBytes);
-        break;
-      default: 
-        throw new Error('Type not recognized! (EID: 202505020956)');
+    this.spinnerService.show();
+
+    try {
+      switch (type) {
+        case HomeComponent.textExtention:
+          await this.txtService.generateTxtFile(sizeInBytes);
+          break;
+        case HomeComponent.documentExtention:
+          await this.docxService.generateDoxcFile(sizeInBytes);
+          break;
+        case HomeComponent.pdfExtention:
+          await this.pdfService.generatePdfFile(sizeInBytes);
+          break;
+        default:
+          throw new Error('Type not recognized! (EID: 202505020956)');
+      }
+
+    } finally {
+      this.spinnerService.hide();
     }
   }
 
@@ -145,10 +158,10 @@ export class HomeComponent implements OnInit {
       return this.inputSize;
     }
 
-    switch(this.selectedSizeUnit.code) {
-      case HomeComponent.bytesCode: 
+    switch (this.selectedSizeUnit.code) {
+      case HomeComponent.bytesCode:
         return this.inputSize;
-      case HomeComponent.kilobytesCode: 
+      case HomeComponent.kilobytesCode:
         return this.inputSize * 1_000;
       case HomeComponent.megabytesCode:
         return this.inputSize * 1_000_000;
@@ -163,7 +176,7 @@ export class HomeComponent implements OnInit {
   }
 }
 
-interface SizeUnit { 
+interface SizeUnit {
   name: string;
   code: string;
 }

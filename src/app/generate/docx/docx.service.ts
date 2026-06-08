@@ -6,22 +6,11 @@ import { saveAs } from 'file-saver';
   providedIn: 'root'
 })
 export class DocxService {
-  generateDoxcFile(sizeInBytes: number) {
+
+  generateDoxcFile(sizeInBytes: number): Promise<void> {
     const text = '.'.repeat(sizeInBytes);
-
-    const doc = new Document({
-      sections: [
-        {
-          children: [
-            new Paragraph({
-              children: [new TextRun(text)],
-            }),
-          ],
-        },
-      ],
-    });
-
-    Packer.toBlob(doc).then(blob => {
+    const doc = new Document({ sections: [{ children: [new Paragraph({ children: [new TextRun(text)] })] }] });
+    return Packer.toBlob(doc).then(blob => {
       saveAs(blob, `docx_${sizeInBytes}_chars.docx`);
     });
   }

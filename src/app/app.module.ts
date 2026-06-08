@@ -16,19 +16,21 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 
 import Lara from '@primeng/themes/lara';
+import { SpinnerComponent } from "./shared/spinner/spinner.component";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     FormsModule,
-    SelectButtonModule, 
+    SelectButtonModule,
     ButtonModule,
     InputNumberModule,
     CascadeSelectModule,
     FloatLabelModule,
     SelectModule,
-  ],
+    SpinnerComponent,
+],
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
