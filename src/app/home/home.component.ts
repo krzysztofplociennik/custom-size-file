@@ -16,9 +16,7 @@ export class HomeComponent implements OnInit {
   private static readonly minimalDocxSizeInBytes = 8000;
   private static readonly minimalTxtSizeInBytes = 1;
 
-  private static readonly maximumPdfSizeInBytes = 1_000_000;
-  private static readonly maximumDocxSizeInBytes = 1_000_000;
-  private static readonly maximumTxtSizeInBytes = 1_000_000;
+  private static readonly maximumSizeInBytes = 1_000_000;
 
   private static readonly textExtention = 'txt';
   private static readonly documentExtention = 'docx';
@@ -93,7 +91,7 @@ export class HomeComponent implements OnInit {
   }
 
   private isInputSizeMoreThanMaximum() {
-    return this.inputSize > HomeComponent.maximumDocxSizeInBytes;
+    return this.determineSize() > HomeComponent.maximumSizeInBytes;
   }
 
   isInputSizeValid() {
