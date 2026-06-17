@@ -3,7 +3,7 @@
 3. need to handle bigger numbers, there are silent fails in console
 4. pdf process is not great of unified
 5. establish a maximum size (at least for the time being)
-6. 
+6. spinner to be implemented in the pdf generation
 7.  
 8. 
 9. 
