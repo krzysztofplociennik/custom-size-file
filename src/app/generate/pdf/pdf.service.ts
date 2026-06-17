@@ -8,7 +8,6 @@ export class PdfService {
   
   generatePdfFile(sizeInBytes: number): Promise<void> {
     return new Promise(resolve => {
-      setTimeout(() => {
 
         const dots = '.'.repeat(sizeInBytes - 446);
 
@@ -55,7 +54,6 @@ ET`;
         DownloadUtils.downloadPdfFile(pdfString, `size_${sizeInBytes}_dots.pdf`);
         resolve();
 
-      }, 0);
     });
   }
 
