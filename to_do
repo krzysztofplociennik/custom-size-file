@@ -1,8 +1,8 @@
 1. when trying to generate big files RAM accumulates
 2. changing colors
 3. need to handle bigger numbers, there are silent fails in console
-4. pdf process is not great of unified
-5. establish a maximum size (at least for the time being)
+4. pdf process is not great or unified
+5. 
 6. spinner to be implemented in the pdf generation
 7.  
 8. 
