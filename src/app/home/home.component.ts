@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   private static readonly minimalDocxSizeInBytes = 8000;
   private static readonly minimalTxtSizeInBytes = 1;
 
-  private static readonly maximumSizeInBytes = 1_000_000;
+  private static readonly maximumSizeInBytes = 1_000_000_000;
 
   private static readonly textExtention = 'txt';
   private static readonly documentExtention = 'docx';

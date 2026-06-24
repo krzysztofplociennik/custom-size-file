@@ -8,7 +8,7 @@ export class TxtService {
 
   generateTxtFile(sizeInBytes: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      const worker = new Worker(new URL('./txt.worker', import.meta.url));
+      const worker = new Worker(new URL('../worker/generate-content.worker', import.meta.url));
       worker.onmessage = ({ data: content }) => {
         DownloadUtils.downloadTxtFile(content, `size_${sizeInBytes}_chars.txt`);
         worker.terminate();
